@@ -1,0 +1,2 @@
+# shortNews
+Similar to inshort
