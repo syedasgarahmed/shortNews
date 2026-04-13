@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortNews - Your Daily News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Featured Section */
+        .featured {
+            margin-bottom: 50px;
+        }
+
+        .featured-article {
+            position: relative;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 40px;
+        }
+
+        .featured-content h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .featured-content p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .news-category.tech {
+            background: #667eea;
+        }
+
+        .news-category.business {
+            background: #f093fb;
+        }
+
+        .news-category.world {
+            background: #4facfe;
+        }
+
+        .news-category.sports {
+            background: #43e97b;
+        }
+
+        .news-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .news-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .featured-content {
+                padding: 20px;
+            }
+
+            .featured-content h2 {
+                font-size: 24px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">📰 ShortNews</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#trending">Trending</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Featured Article -->
+        <section class="featured">
+            <article class="featured-article">
+                <img src="https://via.placeholder.com/1200x400?text=Breaking+News" alt="Featured News" class="featured-image">
+                <div class="featured-content">
+                    <h2>Breaking: Global Tech Summit Announces Revolutionary AI Framework</h2>
+                    <p>Leading innovators gather to unveil groundbreaking artificial intelligence platform that promises to transform industries worldwide...</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- News Grid -->
+        <section class="news-grid">
+            <!-- Card 1 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=Tech+News+1" alt="Tech news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category tech">Technology</span>
+                    <h3>New Smartphone Released with Advanced Camera System</h3>
+                    <p>Tech giant unveils latest smartphone featuring cutting-edge tripple camera system with AI-powered image processing.</p>
+                    <div class="news-meta">
+                        <span>April 12, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=Business+News" alt="Business news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category business">Business</span>
+                    <h3>Stock Markets Reach All-Time High</h3>
+                    <p>Global markets surge as investor confidence remains strong following positive quarterly earnings reports from major corporations.</p>
+                    <div class="news-meta">
+                        <span>April 11, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=World+News" alt="World news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category world">World</span>
+                    <h3>Historic Climate Agreement Signed by 150 Nations</h3>
+                    <p>Countries world over commit to ambitious carbon neutrality targets in landmark international climate accord.</p>
+                    <div class="news-meta">
+                        <span>April 10, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=Sports+News" alt="Sports news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category sports">Sports</span>
+                    <h3>Championship Victory: Team Claims Thrilling Victory</h3>
+                    <p>In an exciting match of the season, the underdog team secures championship title with a dramatic last-minute goal.</p>
+                    <div class="news-meta">
+                        <span>April 9, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=Tech+News+2" alt="Tech news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category tech">Technology</span>
+                    <h3>Quantum Computing Breakthrough Achieved</h3>
+                    <p>Scientists announce major advancement in quantum computing, potentially revolutionizing data processing capabilities.</p>
+                    <div class="news-meta">
+                        <span>April 8, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="news-card">
+                <img src="https://via.placeholder.com/400x200?text=Business+News+2" alt="Business news" class="news-image">
+                <div class="news-content">
+                    <span class="news-category business">Business</span>
+                    <h3>E-commerce Giant Expands to New Markets</h3>
+                    <p>Major online retailer announces expansion into 25 new countries, creating thousands of new jobs worldwide.</p>
+                    <div class="news-meta">
+                        <span>April 7, 2026</span>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#terms">Terms of Service</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#sitemap">Sitemap</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ShortNews. All rights reserved. | Your trusted source for breaking news and updates.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
